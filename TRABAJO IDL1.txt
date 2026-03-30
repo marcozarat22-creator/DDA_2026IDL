@@ -1,0 +1,113 @@
+
+Materia: IDL1 - Desarrollo de Aplicaciones
+Profesor: ORIZANO SALVADOR SERGIO VICTOR
+Estudiante: Marco Zarate Alvarez
+Fecha: 29 de marzo de 2026
+
+
+DIAGRAMA DE CLASES (POO)
+
+
+    ┌─────────────────────────────────────┐
+    │           TRABAJADOR                │
+    ├─────────────────────────────────────┤
+    │ ATRIBUTOS PRIVADOS (Encapsulamiento)│
+    │ - __nombre: str                     │
+    │ - __puesto: str                    │
+    │ - __estado: str                     │
+    │ - __jefe_inmediato: str             │
+    ├─────────────────────────────────────┤
+    │ MÉTODOS GETTER (Acceso controlado)  │
+    │ + get_nombre() -> str               │
+    │ + get_puesto() -> str               │
+    │ + get_estado() -> str               │
+    │ + get_estado_codigo() -> str        │
+    │ + get_jefe_inmediato() -> str       │
+    ├─────────────────────────────────────┤
+    │ MÉTODOS SETTER (Modificación)       │
+    │ + set_nombre(nombre)                │
+    │ + set_puesto(puesto)                │
+    │ + set_estado(estado)                │
+    │ + set_jefe_inmediato(jefe)          │
+    └─────────────────────────────────────┘
+FUNCIONES DE SELECCIÓN BIDIRECCIONAL
+
+    def obtener_jefes_validos_para_puesto(puesto):
+        """Según el puesto, retorna qué tipos de jefe son válidos."""
+        
+    def obtener_puestos_validos_para_jefe(jefe):
+        """Según el jefe, retorna qué puestos pueden reportarle."""
+
+    Estas funciones implementan la LÓGICA BIDIRECCIONAL:
+    - Si seleccionas PUESTO → se filtran los jefes válidos
+    - Si seleccionas JEFE → se filtran los puestos válidos
+
+
+DIAGRAMA DE FLUJO:
+
+    ┌─────────────────┐
+    │   INICIO        │
+    └────────┬────────┘
+             │
+             ▼
+    ┌─────────────────┐
+    │ Cargar empl     │──► Si no existe: crear lista vacía
+    │ empleados.empl  │
+    └────────┬────────┘
+             │
+             ▼
+    ┌─────────────────┐
+    │ Mostrar         │
+    │ Dashboard       │
+    │ (Estadísticas)  │
+    └────────┬────────┘
+             │
+    ┌────────┴────────┐
+    │                 │
+    ▼                 ▼
+┌───────────┐  ┌───────────┐  ┌───────────┐
+│ Registrar │  │ Reporte   │  │ Salir     │
+│ Empleado  │  │ HTML      │  │           │
+└─────┬─────┘  └─────┬─────┘  └───────────┘
+      │               │
+      ▼               ▼
+┌───────────┐  ┌───────────┐
+│ Validar   │  │ Generar    │
+│ datos     │  │ archivo    │
+└─────┬─────┘  │ HTML       │
+      │         └─────┬─────┘
+      ▼               │
+┌───────────┐         │
+│ Guardar   │         │
+│ en EMPL  │         │
+└─────┬─────┘         │
+      │               │
+      ▼               ▼
+    FIN          Abrir en navegador
+
+
+PANTALLA 2: REGISTRAR EMPLEADO (Selección Bidireccional)
+
+Permite registrar empleados de dos formas:
+
+MODO A: Seleccionar por PUESTO
+    1. Usuario selecciona puesto
+    2. Sistema filtra automáticamente los jefes válidos
+    3. Usuario selecciona jefe de la lista filtrada
+    4. Sistema valida y guarda
+
+MODO B: Seleccionar por JEFE
+    1. Usuario selecciona jefe directo
+    2. Sistema filtra automáticamente los puestos válidos
+    3. Usuario selecciona puesto de la lista filtrada
+    4. Sistema valida y guarda
+
+CÓDIGO DE SELECCIÓN BIDIRECCIONAL:
+    # Si selecciona puesto primero
+    puestos_validos_jefe = obtener_jefes_validos_para_puesto(puesto)
+    empleados_filtrados = [e for e in empleados if e.get_puesto() in puestos_validos_jefe]
+    
+    # Si selecciona jefe primero
+    puestos_validos = obtener_puestos_validos_para_jefe(jefe_seleccionado, empleados)
+
+
